@@ -86,9 +86,9 @@ export default class AllClass{
 						course_data.name = course.find('div.moco-course-box-li').find('p').text();
 						course_data.img = '';
 						course_data.URL = 'www.imooc.com' + course.prop('href');	
-						course.description = course_data.name;
+						course_data.description = course_data.name;
 						course_data.difficultLevel = '高';
-						course_data.price = course.find('div.moco-course-box-li').find('span').text();
+						course_data.price = course.find('div.moco-course-box-li').find('span').text() ;
 						course_data.proven = '是';
 
 						courseArray.push(course_data);
@@ -129,10 +129,11 @@ export default class AllClass{
 	}
 
 	static async filter_data(req, res){
-		let new_data = [];
+		let new_data = []; 
+		let course_data = {};
 		for(let m = 0; m < req.length; m++){
-			if(req[m].name !== ''){
-				let course_data = {};
+			if(req[m].name.length){ 
+				
 					
 				course_data.name = req[m].name;
 				course_data.img = req[m].img;
@@ -142,11 +143,10 @@ export default class AllClass{
 				course_data.price = req[m].price;
 				course_data.proven = req[m].proven;
 
-				courseArray.push(course_data);
-				new_data= {};	
+				new_data.push(course_data);//console.log(course_data)
+				course_data= {};	
 			}
 		}
-
 		return new_data;
 	}
 
@@ -162,9 +162,8 @@ export default class AllClass{
 			console.log("Error:" + error);
 		}
 
-		if(result){
-			console.log("success");
-		}
+		console.log("success");
+
 	}
 
 	static async execute(req, res){
